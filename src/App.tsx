@@ -13,6 +13,9 @@ import { Paths } from "./routes";
 import { fetchColors } from "hooks/fetchColors";
 import { areProductsNotEmpty, getArrayOfPageNumbers } from "reduxware/selectors";
 import { Home } from "./components/Home";
+import { createEndpointsArray } from "./helpers";
+import { createEndpointsArrayArgs } from "./types";
+import { useFetchProducts } from "./hooks";
 
 const Modal = loadable(() => import("./components/Modal"));
 const ColorsTable = loadable(() => import("./components/ColorsTable"));
@@ -20,11 +23,14 @@ const NotFound = loadable(() => import("./components/NotFound"));
 const ColorsLayout = loadable(() => import("./components/ColorsLayout"));
 const Colors = loadable(() => import("./components/Colors"));
 
+const initialEndpoints: createEndpointsArrayArgs = { pageNumber: 1, id: undefined };
+
 function App() {
     const navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
     const pageNumbers = useSelector(getArrayOfPageNumbers);
     const readyToRedirect = useSelector(areProductsNotEmpty);
+    const endpoints = createEndpointsArray(initialEndpoints);
+    const fetchProducts = useFetchProducts(endpoints);
 
     useEffect(() => {
         readyToRedirect && navigate(Paths.first);
@@ -32,7 +38,10 @@ function App() {
     }, [readyToRedirect]);
 
     useEffect(() => {
-        fetchColors(enqueueSnackbar);
+        console.log("!!!", endpoints);
+
+        //endpoints && fetchColors(enqueueSnackbar);
+        endpoints && fetchProducts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

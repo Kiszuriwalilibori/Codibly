@@ -1,11 +1,7 @@
+import { createEndpointsArrayArgs } from "types";
 import { BASE_URL, PRODUCTS_TOTAL, PRODUCTS_PER_PAGE } from "../config";
 
-interface Args {
-    pageNumber: number | undefined;
-    id: number | undefined;
-}
-
-export const createEndpointsArray = (args: Args) => {
+export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
     const { pageNumber, id } = args;
     if (pageNumber) {
         const result = [] as string[];
@@ -16,14 +12,13 @@ export const createEndpointsArray = (args: Args) => {
             productIndex = firstProductIndex + counter;
             result.push(`${BASE_URL}/${productIndex}`);
             counter++;
-            console.log(productIndex);
         } while (counter < PRODUCTS_PER_PAGE && productIndex < PRODUCTS_TOTAL);
         return result;
     }
     if (id) {
-        return `${BASE_URL}/${id}`;
+        return [`${BASE_URL}/${id}`];
     }
-    return null;
+    return [];
 };
 
 export default createEndpointsArray;

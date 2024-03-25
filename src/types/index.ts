@@ -18,3 +18,10 @@ export interface ModalItem {
 export type PathKeys = "main" | "nopage" | "first" | "previous";
 
 export { RootStateType } from "../AppProvider";
+
+export interface createEndpointsArrayArgs {
+    pageNumber: number | undefined;
+    id: number | undefined;
+}
+
+export type Endpoints = string[];

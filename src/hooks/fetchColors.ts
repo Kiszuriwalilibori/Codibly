@@ -10,8 +10,8 @@ let endpoints: string[] = [];
 
 export const getAll = (messager: Function) => {
     const results: Colors = [];
-    console.log("endpoints", endpoints);
-    console.log("new endpoints", createEndpointsArray({ pageNumber: 3, id: undefined }));
+
+    // console.log("new endpoints", createEndpointsArray({ pageNumber: 1, id: undefined }));
 
     axios
         .all(endpoints.map(endpoint => axios.get(endpoint)))
