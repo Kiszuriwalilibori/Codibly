@@ -11,7 +11,7 @@ import Header from "./components/Header";
 
 import { Paths } from "./routes";
 import { fetchColors } from "hooks/fetchColors";
-import { areColorsNotEmpty, getArrayOfPageNumbers } from "reduxware/selectors";
+import { areProductsNotEmpty, getArrayOfPageNumbers } from "reduxware/selectors";
 import { Home } from "./components/Home";
 
 const Modal = loadable(() => import("./components/Modal"));
@@ -24,7 +24,7 @@ function App() {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const pageNumbers = useSelector(getArrayOfPageNumbers);
-    const readyToRedirect = useSelector(areColorsNotEmpty);
+    const readyToRedirect = useSelector(areProductsNotEmpty);
 
     useEffect(() => {
         readyToRedirect && navigate(Paths.first);

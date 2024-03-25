@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { areColorsNotEmpty } from "reduxware/selectors";
+import { areProductsNotEmpty } from "reduxware/selectors";
 import { Paths } from "routes";
 
 export const Home = () => {
-    const readyToRedirect = useSelector(areColorsNotEmpty);
+    const readyToRedirect = useSelector(areProductsNotEmpty);
     const navigate = useNavigate();
     useEffect(() => {
         readyToRedirect && navigate(Paths.first);

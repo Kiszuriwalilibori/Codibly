@@ -1,27 +1,26 @@
+import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ClearIcon from "@mui/icons-material/ClearOutlined";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSnackbar } from "notistack";
 
-import useDispatchAction from "../hooks/useDispatchAction";
-
-import { areColorsNotEmpty, getAllColorsIds } from "reduxware/selectors";
-import React from "react";
+import { useDispatchAction } from "../hooks";
+import { areProductsNotEmpty, getProductsIDs } from "reduxware/selectors";
+import { useMessage } from "hooks";
 
 const Filter = () => {
     const [value, setValue] = useState("");
     const { setFilterId } = useDispatchAction();
-    const colorsLoaded = useSelector(areColorsNotEmpty);
-    const allColors = useSelector(getAllColorsIds);
-    const { enqueueSnackbar } = useSnackbar();
+    const areProductsLoaded = useSelector(areProductsNotEmpty);
+    const productsIDs = useSelector(getProductsIDs);
+    const showMessage = useMessage();
 
     const clearInput = useCallback(
         () => {
             setValue("");
-            setFilterId(0);
+            setFilterId(undefined);
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [value]
@@ -39,34 +38,31 @@ const Filter = () => {
 
     useEffect(() => {
         const valueAsNumber = +value;
-        if (allColors.includes(valueAsNumber)) {
+        if (productsIDs.includes(valueAsNumber)) {
             setFilterId(valueAsNumber);
         } else {
             clearInput();
             valueAsNumber &&
-                enqueueSnackbar(
-                    `Requested Id ${valueAsNumber} is out of scope  ${allColors[0]} -  ${allColors.at(
+                showMessage.warning(
+                    `Requested Id ${valueAsNumber} is out of scope  ${productsIDs[0]} -  ${productsIDs.at(
                         -1
-                    )}  . Try with another Id`,
-                    {
-                        variant: "warning",
-                    }
+                    )}  . Try with another Id`
                 );
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
-    if (!colorsLoaded) return null;
+    if (!areProductsLoaded) return null;
 
     return (
         <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
             <TextField
                 id="standard-basic"
-                disabled={!colorsLoaded}
+                disabled={!areProductsLoaded}
                 value={value}
                 onChange={changeHandler}
-                label="Wpisz Id"
+                label="Enter product id"
                 variant="standard"
             />
             <Button disabled={!value} onClick={clearInput}>

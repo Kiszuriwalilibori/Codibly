@@ -18,4 +18,4 @@ const colorsReducer = createReducer(initialState, builder => {
 });
 
 export default colorsReducer;
-export const getAllColors = (state: RootStateType) => state.colors.items;
+export const getProducts = (state: RootStateType) => state.colors.items;

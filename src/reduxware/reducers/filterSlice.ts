@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootStateType } from "types";
 
-const initialState = { value: 0 };
+const initialState = { value: undefined as undefined | number };
 
 const filterId = createSlice({
     name: "filterId",

@@ -3,14 +3,14 @@ import { isEmpty } from "lodash";
 
 import { fieldTolabel } from "helpers";
 
-import { getAllColors } from "../reducers/colorsReducer";
+import { getProducts } from "../reducers/colorsReducer";
 import { getId } from "../reducers/filterSlice";
 import { getCurrentPageNumber } from "../reducers/pageSlice";
 import { getModalColorId, getIsModalVisible } from "../reducers/modalSlice";
 import { Colors, ModalItem } from "types";
 import { PRODUCTS_PER_PAGE } from "config";
 
-function setFilteredColors(ary: Colors, id: number) {
+function setFilteredColors(ary: Colors, id: number | undefined) {
     if (!id) {
         return ary;
     } else {
@@ -19,7 +19,7 @@ function setFilteredColors(ary: Colors, id: number) {
     }
 }
 
-const setAreColorsNotEmpty = (ary: Colors): boolean => {
+const setAreProductsNotEmpty = (ary: Colors): boolean => {
     return ary.length ? true : false;
 };
 
@@ -91,16 +91,16 @@ export const setArrayOfPageNumbers = (x: number) => {
     return result;
 };
 
-export const setAllColorsIds = (ary: Colors) => {
+export const setProductsIDs = (ary: Colors) => {
     const result: number[] = [];
     ary.forEach(item => result.push(item.id));
 
     return result;
 };
 
-export const getFilteredColors = createSelector(getAllColors, getId, setFilteredColors);
+export const getFilteredColors = createSelector(getProducts, getId, setFilteredColors);
 
-export const areColorsNotEmpty = createSelector(getAllColors, setAreColorsNotEmpty);
+export const areProductsNotEmpty = createSelector(getProducts, setAreProductsNotEmpty);
 
 export const getNumberOfPages = createSelector(getFilteredColors, setNumberOfPages);
 
@@ -108,7 +108,7 @@ export const getIsPreviousButtonVisible = createSelector(getCurrentPageNumber, s
 
 export const getIsNextButtonVisible = createSelector(getNumberOfPages, getCurrentPageNumber, setIsNextButtonVisible);
 
-export const getSelectedColorModalData = createSelector(getAllColors, getModalColorId, setSelectedColorModalData);
+export const getSelectedColorModalData = createSelector(getProducts, getModalColorId, setSelectedColorModalData);
 
 export const getColorsForGivenPage = createSelector(
     getFilteredColors,
@@ -118,8 +118,8 @@ export const getColorsForGivenPage = createSelector(
 );
 
 export const getArrayOfPageNumbers = createSelector(getNumberOfPages, setArrayOfPageNumbers);
-export const getAllColorsIds = createSelector(getAllColors, setAllColorsIds);
+export const getProductsIDs = createSelector(getProducts, setProductsIDs);
 
 export { getCurrentPageNumber };
 export { getIsModalVisible };
-export { getAllColors };
+export { getProducts as getAllColors };
