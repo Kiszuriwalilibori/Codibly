@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Colors, Color, Endpoints, AxiosResponse } from "types";
+import { AxiosResponse } from "types";
 
 import { isOffline } from "helpers";
 import useMessage from "./useMessage";

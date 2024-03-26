@@ -1,9 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { Colors, RootStateType } from "types";
+import { Products, RootStateType } from "types";
 import { setColors, clearColors } from "../actionCreators";
 
-const initialState = { items: [] as Colors };
+const initialState = { items: [] as Products };
 
 const colorsReducer = createReducer(initialState, builder => {
     builder.addCase(setColors, (state, action) => {

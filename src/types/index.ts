@@ -1,14 +1,14 @@
-type C = {
+type StringKeyObject = {
     [key: string]: number | string;
 };
-export interface Color extends C {
+export interface Product extends StringKeyObject {
     id: number;
     name: string;
     year: number;
     color: string;
     panton_value: string;
 }
-export type Colors = Color[];
+export type Products = Product[];
 
 export interface ModalItem {
     name: string;
@@ -28,6 +28,6 @@ export interface createEndpointsArrayArgs {
 export type Endpoints = string[];
 
 export type AxiosResponse = {
-    data: Color[];
+    data: Product[];
     total: number;
 };

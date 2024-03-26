@@ -3,21 +3,24 @@ import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import useDispatchAction from "hooks/useDispatchAction";
 
-import { numberToPathname } from "helpers";
 import { getIsPreviousButtonVisible, getIsNextButtonVisible, getCurrentPageNumber } from "reduxware/selectors";
+import { PAGE_PREFIX } from "config";
+import debounce from "lodash/debounce";
 
 const buttonStyle = {
     width: "150px",
 };
+const DEBOUNCE_TIME_MS = 400;
 interface Props {
     resetTextField: () => void;
 }
+
 const Navigation = (props: Props) => {
     const { resetTextField } = props;
     const { showNextPage, showPreviousPage } = useDispatchAction();
@@ -27,24 +30,39 @@ const Navigation = (props: Props) => {
     const { setFilterId } = useDispatchAction();
     const navigate = useNavigate();
 
-    const previousClickHandler = useCallback(() => {
-        setFilterId(undefined);
-        showPreviousPage();
-        const newPathname = numberToPathname(currentDataPageNumber - 1);
-        newPathname && navigate(newPathname);
-        resetTextField();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentDataPageNumber]);
+    const handleClickNext = useCallback(
+        debounce(() => {
+            setFilterId(undefined);
+            showNextPage();
+            const newPathname = `${PAGE_PREFIX}${(currentDataPageNumber + 1).toString()}`;
+            newPathname && navigate(newPathname);
+            resetTextField();
+        }, DEBOUNCE_TIME_MS),
+        [currentDataPageNumber]
+    );
 
-    const nextClickHandler = useCallback(() => {
-        setFilterId(undefined);
-        showNextPage();
-        const newPathname = numberToPathname(currentDataPageNumber + 1);
-        newPathname && navigate(newPathname);
-        resetTextField();
+    const handleClickPrevious = useCallback(
+        debounce(() => {
+            setFilterId(undefined);
+            showPreviousPage();
+            const newPathname = `${PAGE_PREFIX}${(currentDataPageNumber - 1).toString()}`;
+            newPathname && navigate(newPathname);
+            resetTextField();
+        }, DEBOUNCE_TIME_MS),
+        [currentDataPageNumber]
+    );
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentDataPageNumber]);
+    useEffect(() => {
+        return () => {
+            handleClickPrevious.cancel();
+        };
+    }, [handleClickPrevious]);
+
+    useEffect(() => {
+        return () => {
+            handleClickNext.cancel();
+        };
+    }, [handleClickNext]);
 
     return (
         <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
@@ -52,11 +70,11 @@ const Navigation = (props: Props) => {
                 variant="contained"
                 disabled={!isPreviousButtonVisible}
                 sx={buttonStyle}
-                onClick={previousClickHandler}
+                onClick={handleClickPrevious}
             >
                 <ArrowBackIcon />
             </Button>
-            <Button variant="contained" disabled={!isNextButtonVisible} sx={buttonStyle} onClick={nextClickHandler}>
+            <Button variant="contained" disabled={!isNextButtonVisible} sx={buttonStyle} onClick={handleClickNext}>
                 <ArrowForwardIcon />
             </Button>
         </Stack>

@@ -9,31 +9,23 @@ import { useSelector } from "react-redux";
 import Header from "./components/Header";
 
 import { Paths } from "./routes";
-import { fetchColors } from "hooks/fetchColors";
-import {
-    areProductsNotEmpty,
-    getArrayOfPageNumbers,
-    getNumberOfProducts,
-    getCurrentPageNumber,
-    getId,
-} from "reduxware/selectors";
+
+import { areProductsNotEmpty, getArrayOfPageNumbers, getId } from "reduxware/selectors";
 import { Home } from "./components/Home";
-import { createEndpointsArrayArgs } from "./types";
-import { useFetchProducts, useGetEndpoints } from "./hooks";
-import useGetTotalOfProducts from "hooks/useGetTotalOfProducts";
+import { useFetchProducts, useGetEndpoints, useGetTotalOfProducts } from "./hooks";
+import { PAGE_PREFIX, PRODUCT_PREFIX } from "config";
 
 const Modal = loadable(() => import("./components/Modal"));
-const ColorsTable = loadable(() => import("./components/ColorsTable"));
+const ColorsTable = loadable(() => import("./components/ProductsTable"));
 const NotFound = loadable(() => import("./components/NotFound"));
-const ColorsLayout = loadable(() => import("./components/ColorsLayout"));
-const Colors = loadable(() => import("./components/Colors"));
-
-// const initialEndpoints: createEndpointsArrayArgs = { pageNumber: 1, id: undefined, totalNumberOfProducts: 12 };
+const ColorsLayout = loadable(() => import("./components/ProductsLayout"));
+const Colors = loadable(() => import("./components/Products"));
 
 function App() {
     const navigate = useNavigate();
     const pageNumbers = useSelector(getArrayOfPageNumbers);
     const readyToRedirect = useSelector(areProductsNotEmpty);
+    const id = useSelector(getId);
     const getTotalOfProducts = useGetTotalOfProducts();
     const endpoints = useGetEndpoints();
     const fetchProducts = useFetchProducts();
@@ -48,8 +40,6 @@ function App() {
     }, []);
 
     useEffect(() => {
-        //endpoints && fetchColors(enqueueSnackbar);
-
         endpoints && endpoints.length && fetchProducts(endpoints);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [endpoints]);
@@ -63,7 +53,16 @@ function App() {
                     <Route path="/colors" element={<ColorsLayout />}>
                         <Route index element={<Colors />}></Route>
                         {pageNumbers.map(item => (
-                            <Route path={item.toString()} element={<ColorsTable pageNumber={item} />} key={uuid()} />
+                            <Route
+                                path={`${PAGE_PREFIX}${item.toString()}`}
+                                // path={
+                                //     !id
+                                //         ? `${PAGE_PREFIX}${item.toString()}`
+                                //         : `${PAGE_PREFIX}${item.toString()}${PRODUCT_PREFIX}${id}`
+                                // }
+                                element={<ColorsTable pageNumber={item} />}
+                                key={uuid()}
+                            />
                         ))}
                     </Route>
                 </Route>

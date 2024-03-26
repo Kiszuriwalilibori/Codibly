@@ -10,13 +10,10 @@ import TableRow from "@mui/material/TableRow";
 import { useEffect } from "react";
 import { Box } from "@mui/material";
 import { isEmpty } from "lodash";
-import { shallowEqual, useSelector } from "react-redux";
-
-import useDispatchAction from "hooks/useDispatchAction";
-
-import { getColorsForGivenPage } from "reduxware/selectors";
+import { useSelector } from "react-redux";
+import { useDispatchAction } from "hooks";
 import { TABLE_FIELDS, TABLE_HEADERS } from "config";
-import { getProducts } from "reduxware/reducers/colorsReducer";
+import { getProducts } from "reduxware/selectors";
 
 const containerStyle = {
     width: "320px !important",
@@ -35,9 +32,8 @@ interface Props {
     pageNumber?: number;
 }
 
-function ColorsTable(props: Props) {
+function ProductsTable(props: Props) {
     const { pageNumber } = props;
-    // const colors = useSelector(getColorsForGivenPage);
     const products = useSelector(getProducts);
     const { showModal } = useDispatchAction();
     const { showCertainPage } = useDispatchAction();
@@ -53,7 +49,7 @@ function ColorsTable(props: Props) {
                 <TableHead>
                     <TableRow>
                         {TABLE_HEADERS.map((label, index) => (
-                            <TableCell key={uuid()} align={index === 0 ? "left" : "right"}>
+                            <TableCell key={uuid()} align={"left"}>
                                 <b>{label}</b>
                             </TableCell>
                         ))}
@@ -85,4 +81,4 @@ function ColorsTable(props: Props) {
     );
 }
 
-export default React.memo(ColorsTable);
+export default React.memo(ProductsTable);

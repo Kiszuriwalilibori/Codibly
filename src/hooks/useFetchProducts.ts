@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Colors, Color, Endpoints, AxiosResponse } from "types";
+import { Products, Product, Endpoints } from "types";
 
 import { isOffline } from "helpers";
 import useMessage from "./useMessage";
@@ -9,7 +9,7 @@ import useDispatchAction from "./useDispatchAction";
 
 export const useFetchProducts = () => {
     const showMessage = useMessage();
-    const results: Colors = [];
+    const products: Products = [];
     const { setColors } = useDispatchAction();
 
     function fetchProducts(endpoints: Endpoints) {
@@ -21,18 +21,13 @@ export const useFetchProducts = () => {
         axios
             .all(endpoints.map(endpoint => axios.get(endpoint)))
             .then(data => {
-                // console.log(data);
-                // const res = data.map(item => {
-                //     return item.data.data;
-                // });
-                // console.log(res);
-                data.forEach((item: { data: { data: Color } }) => {
-                    const res = item.data.data as Color;
-                    results.push(res);
+                data.forEach((item: { data: { data: Product } }) => {
+                    const product = item.data.data as Product;
+                    products.push(product);
                 });
             })
             .then(() => {
-                results.length && setColors(results);
+                products.length && setColors(products);
             })
             .catch(err => {
                 if (err.response) {

@@ -2,20 +2,20 @@ import axios from "axios";
 
 import { store } from "../AppProvider";
 import { BASE_URL } from "config";
-import { Colors, Color } from "types";
+import { Products, Product } from "types";
 import { SnackbarMessage, OptionsObject, SnackbarKey } from "notistack";
 import { isOffline, createEndpointsArray } from "helpers";
 
 let endpoints: string[] = [];
 
 export const getAll = (messager: Function) => {
-    const results: Colors = [];
+    const results: Products = [];
 
     axios
         .all(endpoints.map(endpoint => axios.get(endpoint)))
         .then(data => {
-            data.forEach((item: { data: { data: Color } }) => {
-                const res = item.data.data as Color;
+            data.forEach((item: { data: { data: Product } }) => {
+                const res = item.data.data as Product;
                 results.push(res);
             });
         })

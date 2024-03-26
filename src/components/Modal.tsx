@@ -9,13 +9,13 @@ import { Divider, Stack } from "@mui/material";
 import useDispatchAction from "hooks/useDispatchAction";
 import ModalDataItem from "./ModalItem";
 
-import { getSelectedColorModalData, getIsModalVisible } from "reduxware/selectors";
+import { getSelectedProductModalData, getIsModalVisible } from "reduxware/selectors";
 import { boxStyle } from "styles";
 
 function MyModal() {
     const isVisible = useSelector(getIsModalVisible, shallowEqual);
     const { hideModal } = useDispatchAction();
-    const data = useSelector(getSelectedColorModalData);
+    const data = useSelector(getSelectedProductModalData);
 
     if (!data || isEmpty(data)) return null;
 

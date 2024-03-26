@@ -8,6 +8,10 @@ export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
         if (pageNumber && !id) {
             const result = [] as string[];
             let firstProductIndex = (pageNumber - 1) * PRODUCTS_PER_PAGE + 1;
+            if (firstProductIndex + PRODUCTS_PER_PAGE > totalNumberOfProducts) {
+                firstProductIndex = totalNumberOfProducts - PRODUCTS_PER_PAGE + 1;
+            }
+            console.log("fpi", firstProductIndex);
             let productIndex = 0;
             let counter = 0;
             do {

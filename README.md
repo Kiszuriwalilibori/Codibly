@@ -1,19 +1,19 @@
-# Colors
+# Colorful Products
 
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
 ## Objective of this project
 
--   Demonstrate knowledge of React, Redux, Router
--   Be a a playground for exercising a.m. technologies
+-   Demonstrate knowledge of React, Redux, Router, Typescript and other technologies
+-   Be a a playground for exercising a.m. stack
 
 ### Features
 
--   initialy, fetches a list of colors from remote location
--   displays the colors with pagination
--   permits filtering one of colors
--   makes available full color data in modal
--   permits navigation both by pressing buttons and directly entering page number
+-   initialy, fetches a list of products from remote location
+-   displays the paginated products while pagination takes place on API side
+-   permits selecting one of products
+-   makes visible full product data with modal
+-   permits navigation between pages
 
 ### Tech
 
