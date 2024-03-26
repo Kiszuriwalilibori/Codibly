@@ -1,3 +1,4 @@
+import AppProvider from "./AppProvider";
 import Filter from "./Filter";
 import FullProductInfo from "./FullProductInfo";
 import Header from "./Header";
@@ -8,7 +9,6 @@ import ProductsLayout from "./ProductsLayout";
 import ProductsTable from "./ProductsTable";
 import Modal from "./Modal";
 import Navigation from "./Navigation";
-import AppProvider from "./AppProvider";
 
 export {
     AppProvider,

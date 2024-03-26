@@ -1,19 +1,18 @@
 import axios from "axios";
 
-import { AxiosResponse } from "types";
-
-import { isOffline } from "helpers";
 import useMessage from "./useMessage";
-
 import useDispatchAction from "./useDispatchAction";
+
+import { AxiosResponse } from "types";
+import { isOffline } from "helpers";
 import { BASE_URL } from "config";
 
-export const useGetTotalOfProducts = () => {
+export const useGetNumberOfProducts = () => {
     const showMessage = useMessage();
 
     const { setNumberOfProducts } = useDispatchAction();
 
-    function getTotalOfProducts() {
+    function getNumberOfProducts() {
         if (isOffline()) {
             showMessage.warning(`You have no internet connection. Try again some later`);
             return;
@@ -31,7 +30,7 @@ export const useGetTotalOfProducts = () => {
             });
     }
 
-    return getTotalOfProducts;
+    return getNumberOfProducts;
 };
 
-export default useGetTotalOfProducts;
+export default useGetNumberOfProducts;

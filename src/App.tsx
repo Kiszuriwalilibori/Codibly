@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { Paths } from "./routes";
 import { areProductsNotEmpty, getArrayOfPageNumbers, getId } from "reduxware/selectors";
 import { Header, Home } from "./components";
-import { useFetchProducts, useGetEndpoints, useGetTotalOfProducts } from "./hooks";
+import { useFetchProducts, useGetEndpoints, useGetNumberOfProducts } from "./hooks";
 import { PAGE_PREFIX, PRODUCT_PREFIX } from "config";
 
 const Modal = loadable(() => import("./components/Modal"));
@@ -23,7 +23,7 @@ function App() {
     const pageNumbers = useSelector(getArrayOfPageNumbers);
     const readyToRedirect = useSelector(areProductsNotEmpty);
     const id = useSelector(getId);
-    const getTotalOfProducts = useGetTotalOfProducts();
+    const getNumberOfProducts = useGetNumberOfProducts();
     const endpoints = useGetEndpoints();
     const fetchProducts = useFetchProducts();
 
@@ -33,7 +33,7 @@ function App() {
     }, [readyToRedirect]);
 
     useEffect(() => {
-        getTotalOfProducts();
+        getNumberOfProducts();
     }, []);
 
     useEffect(() => {
