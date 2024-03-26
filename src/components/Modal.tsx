@@ -7,25 +7,25 @@ import { isEmpty } from "lodash";
 import { Divider, Stack } from "@mui/material";
 
 import useDispatchAction from "hooks/useDispatchAction";
-import ModalDataItem from "./ModalItem";
+import FullProductInfo from "./FullProductInfo";
 
-import { getSelectedProductModalData, getIsModalVisible } from "reduxware/selectors";
+import { getSelectedProductFullData, getIsModalVisible } from "reduxware/selectors";
 import { boxStyle } from "styles";
 
 function MyModal() {
     const isVisible = useSelector(getIsModalVisible, shallowEqual);
     const { hideModal } = useDispatchAction();
-    const data = useSelector(getSelectedProductModalData);
+    const productData = useSelector(getSelectedProductFullData);
 
-    if (!data || isEmpty(data)) return null;
+    if (!productData || isEmpty(productData)) return null;
 
     return (
         <Modal open={isVisible} onClose={() => hideModal()} aria-labelledby="parent-modal-title">
             <Box sx={{ ...boxStyle }}>
                 <h2 id="parent-modal-title">Color details</h2>
                 <Stack direction="column" divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
-                    {data.map(item => {
-                        return <ModalDataItem {...item} key={uuid()} />;
+                    {productData.map(item => {
+                        return <FullProductInfo {...item} key={uuid()} />;
                     })}
                 </Stack>
             </Box>

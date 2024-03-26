@@ -2,7 +2,7 @@ import Stack from "@mui/material/Stack";
 
 import { ModalItem } from "types";
 
-const ModalDataItem = (props: ModalItem) => {
+const FullProductInfo = (props: ModalItem) => {
     const { name, value } = props;
 
     return (
@@ -13,4 +13,4 @@ const ModalDataItem = (props: ModalItem) => {
     );
 };
 
-export default ModalDataItem;
+export default FullProductInfo;
