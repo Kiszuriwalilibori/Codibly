@@ -4,18 +4,23 @@ import loadable from "@loadable/component";
 
 import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
 import { useSelector } from "react-redux";
 
 import Header from "./components/Header";
 
 import { Paths } from "./routes";
 import { fetchColors } from "hooks/fetchColors";
-import { areProductsNotEmpty, getArrayOfPageNumbers } from "reduxware/selectors";
+import {
+    areProductsNotEmpty,
+    getArrayOfPageNumbers,
+    getNumberOfProducts,
+    getCurrentPageNumber,
+    getId,
+} from "reduxware/selectors";
 import { Home } from "./components/Home";
-import { createEndpointsArray } from "./helpers";
 import { createEndpointsArrayArgs } from "./types";
-import { useFetchProducts } from "./hooks";
+import { useFetchProducts, useGetEndpoints } from "./hooks";
+import useGetTotalOfProducts from "hooks/useGetTotalOfProducts";
 
 const Modal = loadable(() => import("./components/Modal"));
 const ColorsTable = loadable(() => import("./components/ColorsTable"));
@@ -23,14 +28,15 @@ const NotFound = loadable(() => import("./components/NotFound"));
 const ColorsLayout = loadable(() => import("./components/ColorsLayout"));
 const Colors = loadable(() => import("./components/Colors"));
 
-const initialEndpoints: createEndpointsArrayArgs = { pageNumber: 1, id: undefined };
+// const initialEndpoints: createEndpointsArrayArgs = { pageNumber: 1, id: undefined, totalNumberOfProducts: 12 };
 
 function App() {
     const navigate = useNavigate();
     const pageNumbers = useSelector(getArrayOfPageNumbers);
     const readyToRedirect = useSelector(areProductsNotEmpty);
-    const endpoints = createEndpointsArray(initialEndpoints);
-    const fetchProducts = useFetchProducts(endpoints);
+    const getTotalOfProducts = useGetTotalOfProducts();
+    const endpoints = useGetEndpoints();
+    const fetchProducts = useFetchProducts();
 
     useEffect(() => {
         readyToRedirect && navigate(Paths.first);
@@ -38,12 +44,15 @@ function App() {
     }, [readyToRedirect]);
 
     useEffect(() => {
-        console.log("!!!", endpoints);
-
-        //endpoints && fetchColors(enqueueSnackbar);
-        endpoints && fetchProducts();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        getTotalOfProducts();
     }, []);
+
+    useEffect(() => {
+        //endpoints && fetchColors(enqueueSnackbar);
+
+        endpoints && endpoints.length && fetchProducts(endpoints);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [endpoints]);
 
     return (
         <Stack spacing={6} alignItems="center" justifyContent="center" marginBottom="24">

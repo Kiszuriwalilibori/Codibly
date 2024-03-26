@@ -22,6 +22,12 @@ export { RootStateType } from "../AppProvider";
 export interface createEndpointsArrayArgs {
     pageNumber: number | undefined;
     id: number | undefined;
+    totalNumberOfProducts: number | undefined;
 }
 
 export type Endpoints = string[];
+
+export type AxiosResponse = {
+    data: Color[];
+    total: number;
+};

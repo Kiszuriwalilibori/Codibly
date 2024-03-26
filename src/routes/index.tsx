@@ -6,3 +6,10 @@ export const Paths: { [key in PathKeys]: any } = {
     first: "/colors/1",
     previous: -1,
 };
+
+// export const Paths: { [key in PathKeys]: any } = {
+//     main: "/",
+//     nopage: "*",
+//     first: "/colors/?page=1",
+//     previous: -1,
+// };

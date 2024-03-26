@@ -15,25 +15,33 @@ import { getIsPreviousButtonVisible, getIsNextButtonVisible, getCurrentPageNumbe
 const buttonStyle = {
     width: "150px",
 };
-
-const Navigation = () => {
+interface Props {
+    resetTextField: () => void;
+}
+const Navigation = (props: Props) => {
+    const { resetTextField } = props;
     const { showNextPage, showPreviousPage } = useDispatchAction();
     const isPreviousButtonVisible = useSelector(getIsPreviousButtonVisible);
     const isNextButtonVisible = useSelector(getIsNextButtonVisible);
     const currentDataPageNumber = useSelector(getCurrentPageNumber, shallowEqual);
+    const { setFilterId } = useDispatchAction();
     const navigate = useNavigate();
 
     const previousClickHandler = useCallback(() => {
+        setFilterId(undefined);
         showPreviousPage();
         const newPathname = numberToPathname(currentDataPageNumber - 1);
         newPathname && navigate(newPathname);
+        resetTextField();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDataPageNumber]);
 
     const nextClickHandler = useCallback(() => {
+        setFilterId(undefined);
         showNextPage();
         const newPathname = numberToPathname(currentDataPageNumber + 1);
         newPathname && navigate(newPathname);
+        resetTextField();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDataPageNumber]);

@@ -1,18 +1,18 @@
 import axios from "axios";
 
-import { Colors, Color, Endpoints } from "types";
+import { Colors, Color, Endpoints, AxiosResponse } from "types";
 
 import { isOffline } from "helpers";
 import useMessage from "./useMessage";
 
 import useDispatchAction from "./useDispatchAction";
 
-export const useFetchProducts = (endpoints: Endpoints) => {
+export const useFetchProducts = () => {
     const showMessage = useMessage();
     const results: Colors = [];
     const { setColors } = useDispatchAction();
 
-    function fetchProducts(/*endpoints: Endpoints*/) {
+    function fetchProducts(endpoints: Endpoints) {
         if (isOffline()) {
             showMessage.warning(`You have no internet connection. Try again some later`);
             return;
@@ -21,15 +21,18 @@ export const useFetchProducts = (endpoints: Endpoints) => {
         axios
             .all(endpoints.map(endpoint => axios.get(endpoint)))
             .then(data => {
+                // console.log(data);
+                // const res = data.map(item => {
+                //     return item.data.data;
+                // });
+                // console.log(res);
                 data.forEach((item: { data: { data: Color } }) => {
                     const res = item.data.data as Color;
                     results.push(res);
                 });
             })
             .then(() => {
-                // results.length && store.dispatch({ type: "COLORS_SET", payload: results });
                 results.length && setColors(results);
-                results.length && showMessage.success(`Fetched succesfully ${results.length} colors`);
             })
             .catch(err => {
                 if (err.response) {

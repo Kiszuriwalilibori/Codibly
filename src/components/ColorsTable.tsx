@@ -16,6 +16,7 @@ import useDispatchAction from "hooks/useDispatchAction";
 
 import { getColorsForGivenPage } from "reduxware/selectors";
 import { TABLE_FIELDS, TABLE_HEADERS } from "config";
+import { getProducts } from "reduxware/reducers/colorsReducer";
 
 const containerStyle = {
     width: "320px !important",
@@ -34,18 +35,17 @@ interface Props {
     pageNumber?: number;
 }
 
-//const pr ={component="th", scope="row"}
-
 function ColorsTable(props: Props) {
     const { pageNumber } = props;
-    const colors = useSelector(getColorsForGivenPage);
+    // const colors = useSelector(getColorsForGivenPage);
+    const products = useSelector(getProducts);
     const { showModal } = useDispatchAction();
     const { showCertainPage } = useDispatchAction();
     useEffect(() => {
         showCertainPage(pageNumber);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber]);
-    if (!colors || isEmpty(colors)) return null;
+    if (!products || isEmpty(products)) return null;
 
     return (
         <TableContainer sx={{ ...containerStyle }} component={Box}>
@@ -60,9 +60,9 @@ function ColorsTable(props: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {colors.map(row => (
+                    {products.map(row => (
                         <TableRow
-                            key={row.name}
+                            key={uuid()}
                             sx={{ background: row.color, ...rowStyle }}
                             onClick={() => {
                                 showModal(row.id);

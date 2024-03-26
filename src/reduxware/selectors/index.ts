@@ -6,7 +6,9 @@ import { fieldTolabel } from "helpers";
 import { getProducts } from "../reducers/colorsReducer";
 import { getId } from "../reducers/filterSlice";
 import { getCurrentPageNumber } from "../reducers/pageSlice";
+import { getNumberOfProducts } from "../reducers/numberOfProductsSlice";
 import { getModalColorId, getIsModalVisible } from "../reducers/modalSlice";
+
 import { Colors, ModalItem } from "types";
 import { PRODUCTS_PER_PAGE } from "config";
 
@@ -35,14 +37,20 @@ function setIsPreviousButtonVisible(currentIndex: number) {
     }
 }
 
-export const setIsNextButtonVisible = (numberOfPages: number, currentIndex: number) => {
-    if (currentIndex < numberOfPages) {
+// export const setIsNextButtonVisible = (numberOfPages: number, currentIndex: number) => {
+//     if (currentIndex < numberOfPages) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// };
+export const setIsNextButtonVisible = (numberOfProducts: number | undefined, currentIndex: number) => {
+    if (numberOfProducts && currentIndex < Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)) {
         return true;
     } else {
         return false;
     }
 };
-
 const setSelectedColorModalData = (ary: Colors, id: number) => {
     const color = ary.find(item => item.id === id);
     if (color) {
@@ -90,6 +98,16 @@ export const setArrayOfPageNumbers = (x: number) => {
     }
     return result;
 };
+export const createArrayOfPageNumbers = (numberOfProducts: number | undefined) => {
+    const result: number[] = [];
+    if (numberOfProducts) {
+        for (let i = 1; i <= Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE); i++) {
+            ///
+            result.push(i);
+        }
+    }
+    return result;
+};
 
 export const setProductsIDs = (ary: Colors) => {
     const result: number[] = [];
@@ -106,8 +124,8 @@ export const getNumberOfPages = createSelector(getFilteredColors, setNumberOfPag
 
 export const getIsPreviousButtonVisible = createSelector(getCurrentPageNumber, setIsPreviousButtonVisible);
 
-export const getIsNextButtonVisible = createSelector(getNumberOfPages, getCurrentPageNumber, setIsNextButtonVisible);
-
+// export const getIsNextButtonVisible = createSelector(getNumberOfPages, getCurrentPageNumber, setIsNextButtonVisible);
+export const getIsNextButtonVisible = createSelector(getNumberOfProducts, getCurrentPageNumber, setIsNextButtonVisible);
 export const getSelectedColorModalData = createSelector(getProducts, getModalColorId, setSelectedColorModalData);
 
 export const getColorsForGivenPage = createSelector(
@@ -117,9 +135,13 @@ export const getColorsForGivenPage = createSelector(
     setColorsForGivenPage
 );
 
-export const getArrayOfPageNumbers = createSelector(getNumberOfPages, setArrayOfPageNumbers);
+// export const getArrayOfPageNumbers = createSelector(getNumberOfPages, setArrayOfPageNumbers);
+export const getArrayOfPageNumbers = createSelector(getNumberOfProducts, createArrayOfPageNumbers);
+
 export const getProductsIDs = createSelector(getProducts, setProductsIDs);
 
 export { getCurrentPageNumber };
 export { getIsModalVisible };
 export { getProducts as getAllColors };
+export { getNumberOfProducts };
+export { getId };

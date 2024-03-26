@@ -11,8 +11,6 @@ let endpoints: string[] = [];
 export const getAll = (messager: Function) => {
     const results: Colors = [];
 
-    // console.log("new endpoints", createEndpointsArray({ pageNumber: 1, id: undefined }));
-
     axios
         .all(endpoints.map(endpoint => axios.get(endpoint)))
         .then(data => {

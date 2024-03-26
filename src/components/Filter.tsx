@@ -10,8 +10,13 @@ import { useDispatchAction } from "../hooks";
 import { areProductsNotEmpty, getProductsIDs } from "reduxware/selectors";
 import { useMessage } from "hooks";
 
-const Filter = () => {
-    const [value, setValue] = useState("");
+interface Props {
+    setTextField: (arg0: string) => void;
+    resetTextField: () => void;
+    value: string;
+}
+const Filter = (props: Props) => {
+    const { resetTextField, setTextField, value } = props;
     const { setFilterId } = useDispatchAction();
     const areProductsLoaded = useSelector(areProductsNotEmpty);
     const productsIDs = useSelector(getProductsIDs);
@@ -19,7 +24,7 @@ const Filter = () => {
 
     const clearInput = useCallback(
         () => {
-            setValue("");
+            resetTextField();
             setFilterId(undefined);
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,7 +34,7 @@ const Filter = () => {
     const changeHandler = useCallback(
         (ev: { target: { value: unknown | number } }) => {
             if (!isNaN(ev.target.value as unknown as number)) {
-                setValue(ev.target.value as string);
+                setTextField(ev.target.value as string);
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,7 +46,6 @@ const Filter = () => {
         if (productsIDs.includes(valueAsNumber)) {
             setFilterId(valueAsNumber);
         } else {
-            clearInput();
             valueAsNumber &&
                 showMessage.warning(
                     `Requested Id ${valueAsNumber} is out of scope  ${productsIDs[0]} -  ${productsIDs.at(

@@ -3,3 +3,9 @@ export function numberToPathname(nbr: number) {
 
     return result;
 }
+
+// export function numberToPathname(nbr: number) {
+//     const result = ("/colors/?page=" + nbr).toString();
+
+//     return result;
+// }

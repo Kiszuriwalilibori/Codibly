@@ -10,12 +10,14 @@ import colorsReducer from "reduxware/reducers/colorsReducer";
 import idReducer from "reduxware/reducers/filterSlice";
 import pageSlice from "reduxware/reducers/pageSlice";
 import modalReducer from "reduxware/reducers/modalSlice";
+import numberOfProductsReducer from "reduxware/reducers/numberOfProductsSlice";
 
 const rootReducer = combineReducers({
     colors: colorsReducer,
     id: idReducer,
     page: pageSlice,
     modal: modalReducer,
+    numberOfProducts: numberOfProductsReducer,
 });
 
 export const store = configureStore({
