@@ -6,20 +6,17 @@ import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Header from "./components/Header";
-
 import { Paths } from "./routes";
-
 import { areProductsNotEmpty, getArrayOfPageNumbers, getId } from "reduxware/selectors";
-import { Home } from "./components/Home";
+import { Header, Home } from "./components";
 import { useFetchProducts, useGetEndpoints, useGetTotalOfProducts } from "./hooks";
 import { PAGE_PREFIX, PRODUCT_PREFIX } from "config";
 
 const Modal = loadable(() => import("./components/Modal"));
-const ColorsTable = loadable(() => import("./components/ProductsTable"));
+const ProductsTable = loadable(() => import("./components/ProductsTable"));
 const NotFound = loadable(() => import("./components/NotFound"));
-const ColorsLayout = loadable(() => import("./components/ProductsLayout"));
-const Colors = loadable(() => import("./components/Products"));
+const ProductsLayout = loadable(() => import("./components/ProductsLayout"));
+const Products = loadable(() => import("./components/Products"));
 
 function App() {
     const navigate = useNavigate();
@@ -50,17 +47,17 @@ function App() {
             <Routes>
                 <Route path="/">
                     <Route index element={<Home />} />
-                    <Route path="/colors" element={<ColorsLayout />}>
-                        <Route index element={<Colors />}></Route>
+                    <Route path="/colors" element={<ProductsLayout />}>
+                        <Route index element={<Products />}></Route>
                         {pageNumbers.map(item => (
                             <Route
-                                path={`${PAGE_PREFIX}${item.toString()}`}
-                                // path={
-                                //     !id
-                                //         ? `${PAGE_PREFIX}${item.toString()}`
-                                //         : `${PAGE_PREFIX}${item.toString()}${PRODUCT_PREFIX}${id}`
-                                // }
-                                element={<ColorsTable pageNumber={item} />}
+                                // path={`${PAGE_PREFIX}${item.toString()}`}
+                                path={
+                                    !id
+                                        ? `${PAGE_PREFIX}${item.toString()}`
+                                        : `${PAGE_PREFIX}${item.toString()}${PRODUCT_PREFIX}${id}`
+                                }
+                                element={<ProductsTable pageNumber={item} />}
                                 key={uuid()}
                             />
                         ))}

@@ -11,7 +11,7 @@ export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
             if (firstProductIndex + PRODUCTS_PER_PAGE > totalNumberOfProducts) {
                 firstProductIndex = totalNumberOfProducts - PRODUCTS_PER_PAGE + 1;
             }
-            console.log("fpi", firstProductIndex);
+
             let productIndex = 0;
             let counter = 0;
             do {

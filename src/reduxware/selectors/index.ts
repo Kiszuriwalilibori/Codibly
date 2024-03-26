@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { fieldTolabel } from "helpers";
-import { getProducts } from "../reducers/colorsReducer";
+import { getProducts } from "../reducers/productsReducer";
 import { getId } from "../reducers/filterSlice";
 import { getCurrentPageNumber } from "../reducers/pageSlice";
 import { getNumberOfProducts } from "../reducers/numberOfProductsSlice";

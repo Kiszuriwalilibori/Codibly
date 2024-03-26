@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import BaseModal from "@mui/material/Modal";
 import uuid from "react-uuid";
 
 import { shallowEqual, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import FullProductInfo from "./FullProductInfo";
 import { getSelectedProductFullData, getIsModalVisible } from "reduxware/selectors";
 import { boxStyle } from "styles";
 
-function MyModal() {
+function Modal() {
     const isVisible = useSelector(getIsModalVisible, shallowEqual);
     const { hideModal } = useDispatchAction();
     const productData = useSelector(getSelectedProductFullData);
@@ -20,7 +20,7 @@ function MyModal() {
     if (!productData || isEmpty(productData)) return null;
 
     return (
-        <Modal open={isVisible} onClose={() => hideModal()} aria-labelledby="parent-modal-title">
+        <BaseModal open={isVisible} onClose={() => hideModal()} aria-labelledby="parent-modal-title">
             <Box sx={{ ...boxStyle }}>
                 <h2 id="parent-modal-title">Color details</h2>
                 <Stack direction="column" divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
@@ -29,8 +29,8 @@ function MyModal() {
                     })}
                 </Stack>
             </Box>
-        </Modal>
+        </BaseModal>
     );
 }
 
-export default MyModal;
+export default Modal;

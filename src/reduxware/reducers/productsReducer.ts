@@ -5,7 +5,7 @@ import { setColors, clearColors } from "../actionCreators";
 
 const initialState = { items: [] as Products };
 
-const colorsReducer = createReducer(initialState, builder => {
+const productsReducer = createReducer(initialState, builder => {
     builder.addCase(setColors, (state, action) => {
         if (action.payload) {
             state.items = action.payload;
@@ -17,5 +17,5 @@ const colorsReducer = createReducer(initialState, builder => {
     });
 });
 
-export default colorsReducer;
+export default productsReducer;
 export const getProducts = (state: RootStateType) => state.colors.items;

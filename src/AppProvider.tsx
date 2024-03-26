@@ -6,14 +6,14 @@ import { HashRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { SnackbarProvider } from "notistack";
 
-import colorsReducer from "reduxware/reducers/colorsReducer";
+import productsReducer from "reduxware/reducers/productsReducer";
 import idReducer from "reduxware/reducers/filterSlice";
 import pageSlice from "reduxware/reducers/pageSlice";
 import modalReducer from "reduxware/reducers/modalSlice";
 import numberOfProductsReducer from "reduxware/reducers/numberOfProductsSlice";
 
 const rootReducer = combineReducers({
-    colors: colorsReducer,
+    colors: productsReducer,
     id: idReducer,
     page: pageSlice,
     modal: modalReducer,

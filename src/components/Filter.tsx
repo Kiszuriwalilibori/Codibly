@@ -64,8 +64,8 @@ const Filter = (props: Props) => {
             const valueAsNumber = +value;
             if (productsIDs.includes(valueAsNumber)) {
                 setFilterId(valueAsNumber);
-                // const newPathname = `${PAGE_PREFIX}${currentDataPageNumber.toString()}${PRODUCT_PREFIX}${value}`;
-                // navigate(newPathname);
+                const newPathname = `${PAGE_PREFIX}${currentDataPageNumber.toString()}${PRODUCT_PREFIX}${value}`;
+                navigate(newPathname);
             } else {
                 valueAsNumber &&
                     showMessage.warning(
