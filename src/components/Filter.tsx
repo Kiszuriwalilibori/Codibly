@@ -59,23 +59,26 @@ const Filter = (props: Props) => {
         [value]
     );
 
-    const handleFilter = useCallback(() => {
-        const valueAsNumber = +value;
-        if (productsIDs.includes(valueAsNumber)) {
-            setFilterId(valueAsNumber);
-            // const newPathname = `${PAGE_PREFIX}${currentDataPageNumber.toString()}${PRODUCT_PREFIX}${value}`;
-            // navigate(newPathname);
-        } else {
-            valueAsNumber &&
-                showMessage.warning(
-                    `Requested Id ${valueAsNumber} is out of scope  ${productsIDs[0]} -  ${productsIDs.at(
-                        -1
-                    )}  . Try with another Id`
-                );
-        }
+    const handleFilter = useCallback(
+        debounce(() => {
+            const valueAsNumber = +value;
+            if (productsIDs.includes(valueAsNumber)) {
+                setFilterId(valueAsNumber);
+                // const newPathname = `${PAGE_PREFIX}${currentDataPageNumber.toString()}${PRODUCT_PREFIX}${value}`;
+                // navigate(newPathname);
+            } else {
+                valueAsNumber &&
+                    showMessage.warning(
+                        `Requested Id ${valueAsNumber} is out of scope  ${productsIDs[0]} -  ${productsIDs.at(
+                            -1
+                        )}  . Try with another Id`
+                    );
+            }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, DEBOUNCE_TIME_MS),
+        [value]
+    );
 
     useEffect(() => {
         return () => {
@@ -83,6 +86,11 @@ const Filter = (props: Props) => {
         };
     }, [handleReset]);
 
+    useEffect(() => {
+        return () => {
+            handleFilter.cancel();
+        };
+    }, [handleFilter]);
     if (!areProductsLoaded) return null;
 
     return (
