@@ -8,5 +8,18 @@ import ProductsLayout from "./ProductsLayout";
 import ProductsTable from "./ProductsTable";
 import Modal from "./Modal";
 import Navigation from "./Navigation";
+import AppProvider from "./AppProvider";
 
-export { Filter, FullProductInfo, Header, Home, Modal, Navigation, NotFound, Products, ProductsLayout, ProductsTable };
+export {
+    AppProvider,
+    Filter,
+    FullProductInfo,
+    Header,
+    Home,
+    Modal,
+    Navigation,
+    NotFound,
+    Products,
+    ProductsLayout,
+    ProductsTable,
+};

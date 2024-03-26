@@ -10,7 +10,7 @@ import useDispatchAction from "./useDispatchAction";
 export const useFetchProducts = () => {
     const showMessage = useMessage();
     const products: Products = [];
-    const { setColors } = useDispatchAction();
+    const { setProducts } = useDispatchAction();
 
     function fetchProducts(endpoints: Endpoints) {
         if (isOffline()) {
@@ -27,7 +27,7 @@ export const useFetchProducts = () => {
                 });
             })
             .then(() => {
-                products.length && setColors(products);
+                products.length && setProducts(products);
             })
             .catch(err => {
                 if (err.response) {

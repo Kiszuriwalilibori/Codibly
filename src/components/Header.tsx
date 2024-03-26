@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
     return (
         <header>
-            <h1>Colors for Codibly</h1>
+            <h1>Colourful Products for Codibly</h1>
         </header>
     );
 };

@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
+
 import { Outlet } from "react-router-dom";
 
 import Filter from "./Filter";
 import Navigation from "./Navigation";
 import useManageTextField from "hooks/useManageTextField";
 
-const INITIAL_TEXTFIELD_VALUE = "";
-
-const ColorsLayout = () => {
+const ProductsLayout = () => {
     const { value, setTextFieldValue, resetTextFieldValue } = useManageTextField();
 
     return (
@@ -18,4 +17,4 @@ const ColorsLayout = () => {
         </>
     );
 };
-export default React.memo(ColorsLayout);
+export default React.memo(ProductsLayout);

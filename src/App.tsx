@@ -47,7 +47,7 @@ function App() {
             <Routes>
                 <Route path="/">
                     <Route index element={<Home />} />
-                    <Route path="/colors" element={<ProductsLayout />}>
+                    <Route path="/products" element={<ProductsLayout />}>
                         <Route index element={<Products />}></Route>
                         {pageNumbers.map(item => (
                             <Route

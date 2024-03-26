@@ -67,6 +67,6 @@ files in helpers dir rearranged
 1. Create local directory
    Now, open the directory with VSCcode and open new terminal, or being in this directory type the folllowing commands with editor of choice:
 2. git init
-3. git remote add origin https://github.com/Kiszuriwalilibori/perfectcolors.git
+3. git remote add origin https://github.com/Kiszuriwalilibori/Codibly.git
 4. git pull origin master
 5. npm install

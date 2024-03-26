@@ -13,7 +13,7 @@ import modalReducer from "reduxware/reducers/modalSlice";
 import numberOfProductsReducer from "reduxware/reducers/numberOfProductsSlice";
 
 const rootReducer = combineReducers({
-    colors: productsReducer,
+    products: productsReducer,
     id: idReducer,
     page: pageSlice,
     modal: modalReducer,
