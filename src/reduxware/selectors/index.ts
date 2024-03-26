@@ -69,8 +69,8 @@ export const setProductsIDs = (ary: Products) => {
 };
 
 export const areProductsNotEmpty = createSelector(getProducts, setAreProductsNotEmpty);
-export const getIsPreviousButtonVisible = createSelector(getCurrentPageNumber, setIsPreviousButtonVisible);
-export const getIsNextButtonVisible = createSelector(getNumberOfProducts, getCurrentPageNumber, setIsNextButtonVisible);
+export const getIsPreviousButtonActive = createSelector(getCurrentPageNumber, setIsPreviousButtonVisible);
+export const getIsNextButtonActive = createSelector(getNumberOfProducts, getCurrentPageNumber, setIsNextButtonVisible);
 export const getSelectedProductModalData = createSelector(getProducts, getModalColorId, setSelectedColorModalData);
 export const getArrayOfPageNumbers = createSelector(getNumberOfProducts, createArrayOfPageNumbers);
 export const getProductsIDs = createSelector(getProducts, setProductsIDs);

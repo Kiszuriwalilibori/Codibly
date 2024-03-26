@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import useDispatchAction from "hooks/useDispatchAction";
 
-import { getIsPreviousButtonVisible, getIsNextButtonVisible, getCurrentPageNumber } from "reduxware/selectors";
+import { getIsPreviousButtonActive, getIsNextButtonActive, getCurrentPageNumber } from "reduxware/selectors";
 import { PAGE_PREFIX } from "config";
 import debounce from "lodash/debounce";
 
@@ -24,8 +24,8 @@ interface Props {
 const Navigation = (props: Props) => {
     const { resetTextField } = props;
     const { showNextPage, showPreviousPage } = useDispatchAction();
-    const isPreviousButtonVisible = useSelector(getIsPreviousButtonVisible);
-    const isNextButtonVisible = useSelector(getIsNextButtonVisible);
+    const isPreviousButtonActive = useSelector(getIsPreviousButtonActive);
+    const isNextButtonActive = useSelector(getIsNextButtonActive);
     const currentDataPageNumber = useSelector(getCurrentPageNumber, shallowEqual);
     const { setFilterId } = useDispatchAction();
     const navigate = useNavigate();
@@ -68,13 +68,20 @@ const Navigation = (props: Props) => {
         <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
             <Button
                 variant="contained"
-                disabled={!isPreviousButtonVisible}
+                disabled={!isPreviousButtonActive}
                 sx={buttonStyle}
                 onClick={handleClickPrevious}
+                id={"Previous Button"}
             >
                 <ArrowBackIcon />
             </Button>
-            <Button variant="contained" disabled={!isNextButtonVisible} sx={buttonStyle} onClick={handleClickNext}>
+            <Button
+                variant="contained"
+                disabled={!isNextButtonActive}
+                sx={buttonStyle}
+                onClick={handleClickNext}
+                id={"Next Button"}
+            >
                 <ArrowForwardIcon />
             </Button>
         </Stack>
