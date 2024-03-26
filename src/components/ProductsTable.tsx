@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import uuid from "react-uuid";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,10 +9,10 @@ import TableRow from "@mui/material/TableRow";
 
 import { useEffect } from "react";
 import { Box } from "@mui/material";
-import { isEmpty } from "lodash";
+import { debounce, isEmpty } from "lodash";
 import { useSelector } from "react-redux";
 import { useDispatchAction } from "hooks";
-import { TABLE_FIELDS, TABLE_HEADERS } from "config";
+import { DEBOUNCE_TIME_MS, TABLE_FIELDS, TABLE_HEADERS } from "config";
 import { getProducts } from "reduxware/selectors";
 
 const containerStyle = {
@@ -37,20 +37,35 @@ function ProductsTable(props: Props) {
     const products = useSelector(getProducts);
     const { showModal } = useDispatchAction();
     const { showCertainPage } = useDispatchAction();
+
+    const handleClick = useCallback(
+        debounce(id => {
+            showModal(id);
+        }, DEBOUNCE_TIME_MS),
+        []
+    );
+
     useEffect(() => {
         showCertainPage(pageNumber);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber]);
+
+    useEffect(() => {
+        return () => {
+            handleClick.cancel();
+        };
+    }, [handleClick]);
+
     if (!products || isEmpty(products)) return null;
 
     return (
-        <TableContainer sx={{ ...containerStyle }} component={Box}>
+        <TableContainer sx={{ ...containerStyle }} component={Box} role="main">
             <Table sx={{ ...tableStyle }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         {TABLE_HEADERS.map((label, index) => (
                             <TableCell key={uuid()} align={"left"}>
-                                <b>{label}</b>
+                                <strong>{label}</strong>
                             </TableCell>
                         ))}
                     </TableRow>
@@ -61,7 +76,7 @@ function ProductsTable(props: Props) {
                             key={uuid()}
                             sx={{ background: row.color, ...rowStyle }}
                             onClick={() => {
-                                showModal(row.id);
+                                handleClick(row.id);
                             }}
                         >
                             {TABLE_FIELDS.map((field, index) => (

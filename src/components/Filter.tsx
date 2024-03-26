@@ -94,9 +94,16 @@ const Filter = (props: Props) => {
     if (!areProductsLoaded) return null;
 
     return (
-        <Stack sx={{ ...filterStyle }} direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
+        <Stack
+            role="form"
+            sx={{ ...filterStyle }}
+            direction="row"
+            spacing={2}
+            justifyContent="flex-start"
+            alignItems="center"
+        >
             <TextField
-                id="standard-basic"
+                id="Filter products input field"
                 disabled={!areProductsLoaded}
                 value={value}
                 onChange={handleChange}
@@ -106,7 +113,7 @@ const Filter = (props: Props) => {
             <Button disabled={!value} onClick={handleReset} sx={{ ...buttonStyle }}>
                 <ClearIcon />
             </Button>
-            <Button disabled={!value} onClick={handleFilter} sx={{ ...buttonStyle }}>
+            <Button disabled={!value} onClick={handleFilter} sx={{ ...buttonStyle }} type="submit">
                 <SearchIcon />
             </Button>
         </Stack>

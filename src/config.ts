@@ -11,4 +11,7 @@ export const TABLE_HEADERS = TABLE_FIELDS.map(field => fieldTolabel(field));
 export const PRODUCTS_TOTAL = 12;
 
 export const PAGE_PREFIX = "page=";
+
 export const PRODUCT_PREFIX = "&id=";
+
+export const DEBOUNCE_TIME_MS = 300;
