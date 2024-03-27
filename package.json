@@ -1,6 +1,6 @@
 {
     "name": "codibly",
-    "version": "0.1.0",
+    "version": "0.2.2",
     "homepage": "https://kiszuriwalilibori.github.io/Codibly",
     "private": true,
     "dependencies": {

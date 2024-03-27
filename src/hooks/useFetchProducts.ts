@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { Products, Product, Endpoints } from "types";
-
 import { isOffline } from "helpers";
 import { useDispatchAction, useMessage } from "hooks";
 import { BASE_URL } from "config/config";
