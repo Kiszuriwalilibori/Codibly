@@ -21,9 +21,13 @@ interface Props {
 }
 
 const filterStyle = {
-    width: "320px !important",
+    width: "320px",
     margin: "0 auto",
+    "@media(max-width: 350px)": {
+        width: "80%",
+    },
 };
+
 const buttonStyle = {
     width: "64px",
     height: "64px",
@@ -99,6 +103,7 @@ const Filter = (props: Props) => {
             spacing={2}
             justifyContent="flex-start"
             alignItems="center"
+            id="Filter"
         >
             <TextField
                 id="Filter products input field"

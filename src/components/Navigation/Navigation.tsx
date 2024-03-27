@@ -12,9 +12,13 @@ import useDispatchAction from "hooks/useDispatchAction";
 import { getIsPreviousButtonActive, getIsNextButtonActive, getCurrentPageNumber } from "reduxware/selectors";
 import { PAGE_PREFIX } from "config/config";
 import debounce from "lodash/debounce";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const buttonStyle = {
     width: "150px",
+    "@media(max-width: 400px)": {
+        width: "80px",
+    },
 };
 const DEBOUNCE_TIME_MS = 400;
 interface Props {

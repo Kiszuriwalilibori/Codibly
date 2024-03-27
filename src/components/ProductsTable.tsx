@@ -16,12 +16,15 @@ import { DEBOUNCE_TIME_MS, TABLE_FIELDS, TABLE_HEADERS } from "config/config";
 import { getProducts } from "reduxware/selectors";
 
 const containerStyle = {
-    width: "320px !important",
+    width: "320px",
     margin: "0 auto",
     border: "2px solid #1565C0",
     padding: 2,
     boxShadow: 6,
     paddingBottom: "25px",
+    "@media(max-width: 350px)": {
+        width: "80%",
+    },
 };
 
 const tableStyle = { maxWidth: 300, margin: "0 auto" };
@@ -59,7 +62,7 @@ function ProductsTable(props: Props) {
     if (!products || isEmpty(products)) return null;
 
     return (
-        <TableContainer sx={{ ...containerStyle }} component={Box} role="main">
+        <TableContainer sx={{ ...containerStyle }} component={Box} role="main" id="Products Table">
             <Table sx={{ ...tableStyle }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
