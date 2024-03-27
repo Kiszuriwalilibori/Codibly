@@ -4,6 +4,7 @@ import { Products, Product, Endpoints } from "types";
 
 import { isOffline } from "helpers";
 import { useDispatchAction, useMessage } from "hooks";
+import { BASE_URL } from "config/config";
 
 export const useFetchProducts = () => {
     const showMessage = useMessage();
@@ -15,9 +16,19 @@ export const useFetchProducts = () => {
             showMessage.warning(`You have no internet connection. Try again some later`);
             return;
         }
+        if (endpoints.length === 0) {
+            showMessage.error(`Axios recived empty array of endpoints`);
+            return;
+        }
 
         axios
-            .all(endpoints.map(endpoint => axios.get(endpoint)))
+            .all(
+                endpoints.map(endpoint =>
+                    axios.get(endpoint, {
+                        baseURL: BASE_URL,
+                    })
+                )
+            )
             .then(data => {
                 data.forEach((item: { data: { data: Product } }) => {
                     const product = item.data.data as Product;

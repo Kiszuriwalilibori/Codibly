@@ -27,8 +27,8 @@ export const modalStyle = {
     pb: 3,
 };
 
-const closeButtonStyle = {
-    margin: "0 auto",
+const iconStyle = {
+    color: red[500],
 };
 
 function DetailsModal() {
@@ -42,7 +42,7 @@ function DetailsModal() {
         <BaseModal open={isVisible} onClose={() => hideModal()} aria-labelledby="parent-modal-title">
             <Box sx={{ ...modalStyle }}>
                 <IconButton onClick={() => hideModal()}>
-                    <CloseIcon sx={{ color: red[500] }} />
+                    <CloseIcon sx={{ ...iconStyle }} />
                 </IconButton>
                 <h2 id="parent-modal-title">Color details</h2>
                 <Stack direction="column" divider={<Divider orientation="horizontal" flexItem />} spacing={1}>

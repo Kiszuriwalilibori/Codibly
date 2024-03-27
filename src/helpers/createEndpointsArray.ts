@@ -1,5 +1,5 @@
 import { createEndpointsArrayArgs } from "types";
-import { BASE_URL, PRODUCTS_PER_PAGE } from "../config/config";
+import { PRODUCTS_PER_PAGE } from "../config/config";
 
 export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
     const { pageNumber, id, totalNumberOfProducts } = args;
@@ -16,13 +16,13 @@ export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
             let counter = 0;
             do {
                 productIndex = firstProductIndex + counter;
-                result.push(`${BASE_URL}/${productIndex}`);
+                result.push(productIndex.toString());
                 counter++;
             } while (counter < PRODUCTS_PER_PAGE && productIndex < totalNumberOfProducts);
             return result;
         }
         if (id) {
-            return [`${BASE_URL}/${id}`];
+            return [id.toString()];
         }
     }
     return [];
