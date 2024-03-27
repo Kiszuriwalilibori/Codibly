@@ -39,20 +39,6 @@ The following tools and resources has been used while developing Google Books
 
 -   No suppport provided for Opera Mini nor IE
 
-### Version
-
-#### 0.1.0
-
-initial
-
-### 0.1.1
-
-added helpers for few simple operations, many variables renamed, readme initiated, ogg data and version added to index.html, gh-pages installed
-
-### 0.1.2
-
-files in helpers dir rearranged
-
 ### Browser limitations
 
 -   No suppport provided for Opera Mini and IE
@@ -71,3 +57,8 @@ files in helpers dir rearranged
 4. git pull origin master
 5. npm install
 
+Important:
+
+Właściwy branch na Githubie to master (nie main)
+
+Odpowiem na pytanie dlaczego pobieram z danych ilość elementów w sytuacji kiedy jest ona podana - zasadniczo dlatego, że w ten sposób apka jest choć trochę skalowalna

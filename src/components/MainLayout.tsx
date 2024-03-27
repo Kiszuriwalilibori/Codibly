@@ -2,7 +2,7 @@ import React from "react";
 
 import { Outlet } from "react-router-dom";
 
-import Filter from "./Filter";
+import Filter from "./Filter/Filter";
 import Navigation from "./Navigation/Navigation";
 import useManageTextField from "hooks/useManageTextField";
 

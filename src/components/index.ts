@@ -1,5 +1,5 @@
 import AppProvider from "./AppProvider";
-import Filter from "./Filter";
+import Filter from "./Filter/Filter";
 import FullProductInfo from "./FullProductInfo";
 import Header from "./Header";
 import Home from "./Home";

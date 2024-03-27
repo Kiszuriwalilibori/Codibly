@@ -3,8 +3,6 @@ import React from "react";
 import { screen } from "@testing-library/react";
 import Navigation from "./Navigation";
 import { render } from "../../../test/test-utils/testing-library-utils";
-import userEvent from "@testing-library/user-event";
-import * as reactRedux from "react-redux";
 
 const resetTextField = jest.fn();
 

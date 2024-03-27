@@ -14,11 +14,8 @@ import { PAGE_PREFIX } from "config/config";
 import debounce from "lodash/debounce";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const buttonStyle = {
-    width: "150px",
-    "@media(max-width: 400px)": {
-        width: "80px",
-    },
+const navigationStyle = {
+    paddingBottom: "16px",
 };
 const DEBOUNCE_TIME_MS = 400;
 interface Props {
@@ -33,6 +30,7 @@ const Navigation = (props: Props) => {
     const currentDataPageNumber = useSelector(getCurrentPageNumber, shallowEqual);
     const { setFilterId } = useDispatchAction();
     const navigate = useNavigate();
+    const matches = useMediaQuery("(max-width:400px)");
 
     const handleClickNext = useCallback(
         debounce(() => {
@@ -69,24 +67,31 @@ const Navigation = (props: Props) => {
     }, [handleClickNext]);
 
     return (
-        <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+        <Stack
+            id="Navigation"
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            sx={{ ...navigationStyle }}
+        >
             <Button
                 variant="contained"
                 disabled={!isPreviousButtonActive}
-                sx={buttonStyle}
                 onClick={handleClickPrevious}
                 id={"Previous Button"}
                 aria-label="to previous page"
+                size={matches ? "small" : "large"}
             >
                 <ArrowBackIcon />
             </Button>
             <Button
                 variant="contained"
                 disabled={!isNextButtonActive}
-                sx={buttonStyle}
                 onClick={handleClickNext}
                 id={"Next Button"}
                 aria-label="to next page"
+                size={matches ? "small" : "large"}
             >
                 <ArrowForwardIcon />
             </Button>

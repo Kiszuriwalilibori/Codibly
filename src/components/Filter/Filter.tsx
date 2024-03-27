@@ -9,7 +9,7 @@ import debounce from "lodash/debounce";
 import { useCallback, useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
-import { useDispatchAction, useMessage } from "../hooks";
+import { useDispatchAction, useMessage } from "../../hooks";
 import { areProductsNotEmpty, getProductsIDs, getCurrentPageNumber } from "reduxware/selectors";
 import { DEBOUNCE_TIME_MS, PAGE_PREFIX, PRODUCT_PREFIX } from "config/config";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const buttonStyle = {
     borderRadius: "50%",
 };
 
-const Filter = (props: Props) => {
+export const Filter = (props: Props) => {
     const { resetTextField, setTextField, value } = props;
     const { setFilterId } = useDispatchAction();
     const areProductsLoaded = useSelector(areProductsNotEmpty);
@@ -112,6 +112,7 @@ const Filter = (props: Props) => {
                 onChange={handleChange}
                 label="Enter product id"
                 variant="outlined"
+                data-testid="product id"
             />
             <Button disabled={!value} onClick={handleReset} sx={{ ...buttonStyle }}>
                 <ClearIcon />
@@ -122,4 +123,4 @@ const Filter = (props: Props) => {
         </Stack>
     );
 };
-export default React.memo(Filter);
+export default Filter;
