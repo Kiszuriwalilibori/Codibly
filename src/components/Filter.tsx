@@ -1,26 +1,24 @@
-import React, { ChangeEvent, useMemo } from "react";
+import React, { ChangeEvent } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ClearIcon from "@mui/icons-material/ClearOutlined";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
-
 import debounce from "lodash/debounce";
+
 import { useCallback, useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useDispatchAction, useMessage } from "../hooks";
 import { areProductsNotEmpty, getProductsIDs, getCurrentPageNumber } from "reduxware/selectors";
-import { PAGE_PREFIX, PRODUCT_PREFIX } from "config";
+import { DEBOUNCE_TIME_MS, PAGE_PREFIX, PRODUCT_PREFIX } from "config/config";
 import { useNavigate } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
 
 interface Props {
     setTextField: (arg0: string) => void;
     resetTextField: () => void;
     value: string;
 }
-const DEBOUNCE_TIME_MS = 400;
 
 const filterStyle = {
     width: "320px !important",

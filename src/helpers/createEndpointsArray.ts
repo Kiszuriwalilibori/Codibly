@@ -1,5 +1,5 @@
 import { createEndpointsArrayArgs } from "types";
-import { BASE_URL, PRODUCTS_PER_PAGE } from "../config";
+import { BASE_URL, PRODUCTS_PER_PAGE } from "../config/config";
 
 export const createEndpointsArray = (args: createEndpointsArrayArgs) => {
     const { pageNumber, id, totalNumberOfProducts } = args;

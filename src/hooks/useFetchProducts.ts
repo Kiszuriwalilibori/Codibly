@@ -3,9 +3,7 @@ import axios from "axios";
 import { Products, Product, Endpoints } from "types";
 
 import { isOffline } from "helpers";
-import useMessage from "./useMessage";
-
-import useDispatchAction from "./useDispatchAction";
+import { useDispatchAction, useMessage } from "hooks";
 
 export const useFetchProducts = () => {
     const showMessage = useMessage();

@@ -5,10 +5,10 @@ import Header from "./Header";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import Products from "./Products";
-import ProductsLayout from "./ProductsLayout";
+import MainLayout from "./MainLayout";
 import ProductsTable from "./ProductsTable";
-import Modal from "./Modal";
-import Navigation from "./Navigation";
+import DetailsModal from "./DetailsModal";
+import Navigation from "./Navigation/Navigation";
 
 export {
     AppProvider,
@@ -16,10 +16,10 @@ export {
     FullProductInfo,
     Header,
     Home,
-    Modal,
+    DetailsModal as Modal,
     Navigation,
     NotFound,
     Products,
-    ProductsLayout,
+    MainLayout as ProductsLayout,
     ProductsTable,
 };

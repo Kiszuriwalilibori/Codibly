@@ -10,12 +10,12 @@ import { Paths } from "./routes";
 import { areProductsNotEmpty, getArrayOfPageNumbers, getId } from "reduxware/selectors";
 import { Header, Home } from "./components";
 import { useFetchProducts, useGetEndpoints, useGetNumberOfProducts } from "./hooks";
-import { PAGE_PREFIX, PRODUCT_PREFIX } from "config";
+import { DOMAIN_NAME, PAGE_PREFIX, PRODUCT_PREFIX } from "config/config";
 
-const Modal = loadable(() => import("./components/Modal"));
+const Modal = loadable(() => import("./components/DetailsModal"));
 const ProductsTable = loadable(() => import("./components/ProductsTable"));
 const NotFound = loadable(() => import("./components/NotFound"));
-const ProductsLayout = loadable(() => import("./components/ProductsLayout"));
+const ProductsLayout = loadable(() => import("./components/MainLayout"));
 const Products = loadable(() => import("./components/Products"));
 
 function App() {
@@ -47,11 +47,10 @@ function App() {
             <Routes>
                 <Route path="/">
                     <Route index element={<Home />} />
-                    <Route path="/products" element={<ProductsLayout />}>
+                    <Route path={`/${DOMAIN_NAME}`} element={<ProductsLayout />}>
                         <Route index element={<Products />}></Route>
                         {pageNumbers.map(item => (
                             <Route
-                                // path={`${PAGE_PREFIX}${item.toString()}`}
                                 path={
                                     !id
                                         ? `${PAGE_PREFIX}${item.toString()}`

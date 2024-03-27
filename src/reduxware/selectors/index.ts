@@ -6,7 +6,7 @@ import { getCurrentPageNumber } from "../reducers/pageSlice";
 import { getNumberOfProducts } from "../reducers/numberOfProductsSlice";
 import { getModalColorId, getIsModalVisible } from "../reducers/modalSlice";
 import { Products, ModalItem } from "types";
-import { PRODUCTS_PER_PAGE } from "config";
+import { PRODUCTS_PER_PAGE } from "config/config";
 
 const setAreProductsNotEmpty = (ary: Products): boolean => {
     return ary.length ? true : false;

@@ -12,7 +12,7 @@ import { Box } from "@mui/material";
 import { debounce, isEmpty } from "lodash";
 import { useSelector } from "react-redux";
 import { useDispatchAction } from "hooks";
-import { DEBOUNCE_TIME_MS, TABLE_FIELDS, TABLE_HEADERS } from "config";
+import { DEBOUNCE_TIME_MS, TABLE_FIELDS, TABLE_HEADERS } from "config/config";
 import { getProducts } from "reduxware/selectors";
 
 const containerStyle = {

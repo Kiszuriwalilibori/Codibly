@@ -1,15 +1,12 @@
 import axios from "axios";
 
-import useMessage from "./useMessage";
-import useDispatchAction from "./useDispatchAction";
-
+import { useDispatchAction, useMessage } from "hooks";
 import { AxiosResponse } from "types";
 import { isOffline } from "helpers";
-import { BASE_URL } from "config";
+import { BASE_URL } from "config/config";
 
 export const useGetNumberOfProducts = () => {
     const showMessage = useMessage();
-
     const { setNumberOfProducts } = useDispatchAction();
 
     function getNumberOfProducts() {

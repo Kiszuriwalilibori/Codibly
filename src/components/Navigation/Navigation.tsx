@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import useDispatchAction from "hooks/useDispatchAction";
 
 import { getIsPreviousButtonActive, getIsNextButtonActive, getCurrentPageNumber } from "reduxware/selectors";
-import { PAGE_PREFIX } from "config";
+import { PAGE_PREFIX } from "config/config";
 import debounce from "lodash/debounce";
 
 const buttonStyle = {
@@ -72,6 +72,7 @@ const Navigation = (props: Props) => {
                 sx={buttonStyle}
                 onClick={handleClickPrevious}
                 id={"Previous Button"}
+                aria-label="to previous page"
             >
                 <ArrowBackIcon />
             </Button>
@@ -81,6 +82,7 @@ const Navigation = (props: Props) => {
                 sx={buttonStyle}
                 onClick={handleClickNext}
                 id={"Next Button"}
+                aria-label="to next page"
             >
                 <ArrowForwardIcon />
             </Button>

@@ -1,4 +1,4 @@
-import { fieldTolabel } from "./helpers";
+import { fieldTolabel } from "../helpers";
 
 export const BASE_URL = "https://reqres.in/api/products";
 
@@ -15,3 +15,5 @@ export const PAGE_PREFIX = "page=";
 export const PRODUCT_PREFIX = "&id=";
 
 export const DEBOUNCE_TIME_MS = 300;
+
+export const DOMAIN_NAME = "products";

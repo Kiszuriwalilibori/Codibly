@@ -3,10 +3,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import Filter from "./Filter";
-import Navigation from "./Navigation";
+import Navigation from "./Navigation/Navigation";
 import useManageTextField from "hooks/useManageTextField";
 
-const ProductsLayout = () => {
+const MainLayout = () => {
     const { value, setTextFieldValue, resetTextFieldValue } = useManageTextField();
 
     return (
@@ -17,4 +17,4 @@ const ProductsLayout = () => {
         </>
     );
 };
-export default React.memo(ProductsLayout);
+export default MainLayout;
